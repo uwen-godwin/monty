@@ -1,6 +1,5 @@
 #include "monty.h"
 
-/*stack_t *head = NULL;*/
 /**
  * main - Entry point for the Monty interpreter
  * @argc: Number of command-line arguments
@@ -32,6 +31,13 @@ int main(int argc, char *argv[])
 		instruction = get_instruction(line, line_number);
 		if (instruction)
 			instruction->f(&stack, line_number);
+		else
+		{
+			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, line);
+			free_stack(&stack);
+			fclose(file);
+			exit(EXIT_FAILURE);
+		}
 	}
 	if (fclose(file) == EOF)
 	{
@@ -41,6 +47,7 @@ int main(int argc, char *argv[])
 	free_stack(&stack);
 	return (EXIT_SUCCESS);
 }
+
 /**
  * free_stack - Frees all nodes in the stack
  * @stack: Pointer to the top of the stack
@@ -51,6 +58,7 @@ void free_stack(stack_t **stack)
 
 	if (stack == NULL || *stack == NULL)
 		return;
+
 	current = *stack;
 	while (current != NULL)
 	{
@@ -58,5 +66,6 @@ void free_stack(stack_t **stack)
 		current = current->next;
 		free(temp);
 	}
+
 	*stack = NULL;
 }
