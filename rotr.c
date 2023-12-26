@@ -1,21 +1,26 @@
 #include "monty.h"
 
+/**
+ * rotr - Rotates the stack to the bottom
+ * @stack: Pointer to the top of the stack
+ * @line_number: Line number in the Monty bytecode file
+ */
 void rotr(stack_t **stack, unsigned int line_number)
 {
-    (void)line_number;
+	stack_t *temp, *current;
 
-    if (*stack && (*stack)->next)
-    {
-        stack_t *first = *stack;
-        stack_t *last = *stack;
+	(void)line_number;
 
-        while (last->next)
-            last = last->next;
-
-        *stack = last;
-        last->prev->next = NULL;
-        last->prev = NULL;
-        (*stack)->next = first;
-        first->prev = *stack;
-    }
+	if (stack && *stack && (*stack)->next)
+	{
+		current = *stack;
+		while (current && current->next)
+			current = current->next;
+		temp = current;
+		current = *stack;
+		*stack = current->next;
+		current->next = NULL;
+		if (*stack)
+			temp->next = current;
+	}
 }
