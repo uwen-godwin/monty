@@ -12,7 +12,7 @@ void push(stack_t **stack, unsigned int line_number)
 
 	token = strtok(NULL, " \t\n");
 
-	if (!token || (!isdigit(*token) && *token != '-' && *token != '+'))
+	if (!token || (!isdigit(*token) && *token != '-'))
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -31,7 +31,7 @@ void pall(stack_t **stack, unsigned int line_number)
 
 	(void)line_number;
 
-	if (!stack)
+	if (!*stack)
 		return;
 	while (current)
 	{
