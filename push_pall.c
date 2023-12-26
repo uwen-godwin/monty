@@ -18,8 +18,15 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	value = atoi(token);
+
+	if (value == 0 && *token != '0')
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	push_stack(stack, value);
 }
+
 /**
  * pall - Prints all the values on the stack
  * @stack: Pointer to the top of the stack
