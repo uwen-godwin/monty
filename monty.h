@@ -9,6 +9,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#define STACK_MODE 0
+#define QUEUE_MODE 1
+#define STACK_SIZE 100
 #define NUM_INSTRUCTIONS 20
 #define MAX_LINE_LENGTH 1024
 #define STACK_SIZE 100
@@ -44,6 +47,30 @@ typedef struct instruction_s
     char *opcode;
     void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+/**
+ * struct queue_s - Structure for queue mode
+ * @front: Front of the queue
+ * @rear: Rear of the queue
+ */
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+typedef struct queue_s
+{
+    stack_t *front;
+    stack_t *rear;
+} queue_t;
+
+typedef struct Monty {
+    Node* top;
+    Node* front;
+    int mode;
+} Monty;
+
+/* Declare global_queue */
+extern queue_t global_queue;
 
 /* Function prototypes */
 void push(stack_t **stack, unsigned int line_number);
@@ -65,8 +92,13 @@ void rotr(stack_t **stack, unsigned int line_number);
 void stack_op(stack_t **stack, unsigned int line_number);
 void queue_op(stack_t **stack, unsigned int line_number);
 void push_stack(stack_t **stack, int value);
+void reverse_stack(stack_t **stack);
+/*void switchMode(stack_t **stack);*/
+void execute(stack_t **stack, const char *command);
 
 /* Helper functions */
 instruction_t *get_instruction(char *opcode, unsigned int line_number);
 void free_stack(stack_t **stack);
+void switchMode(Monty *monty);
+
 #endif /* MONTY_H */

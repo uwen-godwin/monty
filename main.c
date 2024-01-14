@@ -1,4 +1,5 @@
 #include "monty.h"
+Monty *monty;
 
 /**
  * main - Entry point for the Monty interpreter

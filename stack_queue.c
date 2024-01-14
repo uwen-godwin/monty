@@ -7,13 +7,8 @@
  */
 void stack_op(stack_t **stack, unsigned int line_number)
 {
-    /* Suppress unused warning */
     (void)line_number;
-
-    /* Unused parameter */
     (void)stack;
-
-    /* No action needed for stack, as it is the default behavior */
 }
 
 /**
@@ -23,9 +18,6 @@ void stack_op(stack_t **stack, unsigned int line_number)
  */
 void queue_op(stack_t **stack, unsigned int line_number)
 {
-    /* Suppress unused warning */
     (void)line_number;
-
-    /* Unused parameter */
     (void)stack;
 }
